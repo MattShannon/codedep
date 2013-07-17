@@ -1,4 +1,4 @@
-"""Semi-automated code-level dependency tracking."""
+"""Semi-automated code-level dependency tracking for python."""
 
 # Copyright 2011, 2012, 2013 Matt Shannon
 
