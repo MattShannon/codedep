@@ -91,7 +91,7 @@ Suitable ``@codeDeps`` decorator lines can be suggested using an automated
 tool.
 Running::
 
-    bin/check_codedep.sh example/foo.py
+    bin/codedep_check example/foo.py
 
 should print ``(no change)`` as one of its lines of output.
 If you now change the definition of ``baz`` in ``example/foo.py`` to
@@ -99,10 +99,10 @@ If you now change the definition of ``baz`` in ``example/foo.py`` to
 taken to a vimdiff of the original and suggested files.
 The tool picks up the fact that ``baz`` now depends on ``bar``.
 
-Note that ``bin/check_codedep.sh`` is a wrapper around
+Note that ``bin/codedep_check`` is a wrapper around
 ``codedep/check_deps.py``.
 The wrapper makes certain assumptions about the structure of the project
-(see ``bin/check_codedep.sh`` for details).
+(see ``bin/codedep_check`` for details).
 In complicated cases it is intended that this wrapper be copied and customized
 to a version suitable for the specific project.
 
