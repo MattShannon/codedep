@@ -4,7 +4,6 @@ codedep
 This package provides a simple, semi-automated way to do code-level dependency
 tracking for python projects.
 
-
 Problem
 -------
 
@@ -22,7 +21,6 @@ behaviour of a given function or class changes (or rather, might have changed).
 For example the author's original use case was for distributing jobs on a
 compute grid, where it was useful to be able to determine automatically when
 a job needed to be re-run because of changes to the source code.
-
 
 Approach used by codedep
 ------------------------
@@ -61,7 +59,6 @@ The entire code to do the decoration and compute hashes is around 200 lines.
 It is hoped that this simplicity will allow reasoning about how the scheme will
 operate in any tricky edge cases.
 
-
 Usage
 -----
 
@@ -71,11 +68,11 @@ The script `example/print_hash.py` prints some of the computed hashes for the
 functions and classes, together with some values computed by the functions and
 classes.
 
-Typing
+Typing:
 
     PYTHONPATH=. python -m example.print_hash
 
-should give the output
+should give the output:
 
     hash of baz = 1a0ebbff92a8a8691c17a460b8eeb4cb38399c60
     hash of Foo = 96a9e852464e99d68d2769655a8113de33ee0721
@@ -83,7 +80,7 @@ should give the output
     value2 = 0
 
 If you now change the definition of `qux` in `example/foo.py` to multiply by 3
-instead of 2, then the above command will output
+instead of 2, then the above command will output:
 
     hash of baz = 0c955f9963b6acb422501d5ee64e6bdedc5c204b
     hash of Foo = 572f8685fde1670fa720df6ebbf89a6cc8dd1e4c
@@ -91,7 +88,7 @@ instead of 2, then the above command will output
     value2 = 0
 
 Suitable `@codeDeps` decorator lines can be suggested using an automated tool.
-Running
+Running:
 
     bin/check_codedep.sh example/foo.py
 
@@ -107,12 +104,10 @@ The wrapper makes certain assumptions about the structure of the project
 In complicated cases it is intended that this wrapper be copied and customized
 to a version suitable for the specific project.
 
-
 License
 -------
 
 Please see the file `License` for details of the license and warranty for codedep.
-
 
 Source
 ------
@@ -122,13 +117,11 @@ To obtain the latest source code using git:
 
     git clone git://github.com/MattShannon/codedep.git
 
-
 Bugs
 ----
 
 Please use the [issue tracker](https://github.com/MattShannon/codedep/issues)
 to submit bug reports.
-
 
 Contact
 -------
