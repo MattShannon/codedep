@@ -1,0 +1,48 @@
+#!/bin/bash
+# Checks whether code-level dependencies are correctly declared.
+#
+# This script is just a wrapper around check_deps.py which calls vimdiff so you
+# can see the proposed changes more easily.
+# It also allows many modules to be checked at the same time.
+#
+# This script can be used as is to check the declared @codeDeps dependencies in
+# a python project provided that the current directory is the project's root
+# and that only dependencies on modules below the current directory need to be
+# declared.
+#
+# This script can also be copied to the repository for a python project and
+# customized for that project.
+
+# Copyright 2011, 2012, 2013 Matt Shannon
+
+# This file is part of codedep.
+# See `License` for details of license and warranty.
+
+set -e
+set -u
+set -o pipefail
+
+tmpDir=`mktemp -d`
+echo "(using temporary dir $tmpDir)"
+
+for pyFile in "$@"; do
+    moduleName="`echo "$pyFile" | sed -r 's%^\./%%;s%/%.%g;s/\.py$//'`"
+    echo
+    echo "(moduleName = $moduleName, pyFile = $pyFile)"
+    echo
+    pyFileNew="$tmpDir"/"`basename "$pyFile"`"
+
+    PYTHONPATH=. python -m "codedep.check_deps" . "$moduleName" > "$pyFileNew"
+
+    if [[ "`diff -q "$pyFile" "$pyFileNew"`" != "" ]]; then
+        # (below works around vim's "Input is not from a terminal" warning)
+        { echo "$pyFile"; echo "$pyFileNew"; } | xargs -d '\n' bash -c '</dev/tty vimdiff "$@"' ignoreme
+    else
+        echo "(no change)"
+    fi
+
+    rm -f "$pyFileNew"
+    echo
+done
+
+rmdir "$tmpDir" && echo "(cleaned-up temporary dir $tmpDir)"
