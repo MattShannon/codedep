@@ -70,7 +70,7 @@ classes.
 
 Typing::
 
-    PYTHONPATH=. python -m example.print_hash
+    python -m example.print_hash
 
 should give the output::
 
@@ -92,6 +92,10 @@ tool.
 Running::
 
     bin/codedep_check example/foo.py
+
+or, if codedep has been installed, running::
+
+    codedep_check example/foo.py
 
 should print ``(no change)`` as one of its lines of output.
 If you now change the definition of ``baz`` in ``example/foo.py`` to
