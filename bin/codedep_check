@@ -32,7 +32,7 @@ for pyFile in "$@"; do
     echo
     pyFileNew="$tmpDir"/"`basename "$pyFile"`"
 
-    python -m "codedep.check_deps" . "$moduleName" > "$pyFileNew"
+    python -m "codedep.check_deps" "$moduleName" > "$pyFileNew"
 
     if [[ "`diff -q "$pyFile" "$pyFileNew"`" != "" ]]; then
         # (below works around vim's "Input is not from a terminal" warning)

@@ -1,5 +1,5 @@
 #!/usr/bin/python -u
-"""Checks whether code-level dependencies are correctly declared."""
+"""Checks codeDeps dependencies are correctly declared."""
 
 # Copyright 2011, 2012, 2013 Matt Shannon
 
@@ -11,6 +11,7 @@ from __future__ import division
 
 import os
 import sys
+import argparse
 import inspect
 import _ast
 import ast
@@ -175,13 +176,39 @@ def prettyPrintBisqueDepsStanza(deps, init = '@', maxLineLength = 80):
             ret += (currLine[:-1]+'\n)')
             return ret
 
-def main(args):
-    srcRootDir = os.path.abspath(args[1])
-    moduleName = args[2]
+def getSrcRootDirs(moduleNames):
+    srcRootDirs = []
+    for moduleName in moduleNames:
+        module = importlib.import_module(moduleName)
+        moduleFile = os.path.abspath(inspect.getsourcefile(module))
+        srcRootDir = os.path.dirname(moduleFile)
+        srcRootDirs.append(srcRootDir)
 
-    sys.stderr.write('(using srcRootDir = %s)\n' % srcRootDir)
+    return srcRootDirs
 
-    module = importlib.import_module(moduleName)
+def main(argv):
+    parser = argparse.ArgumentParser(
+        description = 'Checks codeDeps dependencies are correctly declared.',
+    )
+    parser.add_argument(
+        '--inc_deps_on', dest = 'depModuleNames', metavar = 'DMOD',
+        action = 'append', default = [],
+        # FIXME : explain what target directory means
+        help = ('adds the directory containing module DMOD to the list of'
+                ' target directories (option can be repeated)')
+    )
+    parser.add_argument(
+        'moduleName', metavar = 'MOD',
+        help = 'name of module to check (e.g. "foo.bar")'
+    )
+    args = parser.parse_args(argv[1:])
+
+    srcRootDirs = getSrcRootDirs(args.depModuleNames)
+    for depModuleName, srcRootDir in zip(args.depModuleNames, srcRootDirs):
+        sys.stderr.write('(adding srcRootDir = %s for module %s)\n' %
+                         (srcRootDir, depModuleName))
+
+    module = importlib.import_module(args.moduleName)
 
     moduleFile = os.path.abspath(inspect.getsourcefile(module))
     moduleFileContents = file(moduleFile).read()
@@ -189,7 +216,7 @@ def main(args):
     assert moduleFileLines[-1] == ''
     moduleFileLines = moduleFileLines[:-1]
 
-    sys.stderr.write('(module %s from %s)\n' % (moduleName, moduleFile))
+    sys.stderr.write('(checking module %s from %s)\n' % (args.moduleName, moduleFile))
 
     nodeModule = ast.parse(moduleFileContents, moduleFile, 'exec')
     symtab = symtable.symtable(moduleFileContents, moduleFile, 'exec')
@@ -301,8 +328,11 @@ def main(args):
                                          name)
             if sourceFileRel is not None:
                 sourceFile = os.path.abspath(sourceFileRel)
-                if True and (os.path.commonprefix([srcRootDir, sourceFile]) ==
-                             srcRootDir):
+                if any([
+                    os.path.commonprefix([srcRootDir,
+                                          sourceFile]) == srcRootDir
+                    for srcRootDir in srcRootDirs
+                ]):
                     namesWithinRoot.add(name)
 
     sys.stderr.write('\n')
