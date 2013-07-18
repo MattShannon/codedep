@@ -59,6 +59,22 @@ The entire code to do the decoration and compute hashes is around 200 lines.
 It is hoped that this simplicity will allow reasoning about how the scheme will
 operate in any tricky edge cases.
 
+Installation
+------------
+
+For most purposes the simplest way to install codedep is to use pip::
+
+    sudo pip install codedep
+
+This installs the latest released version of
+`codedep on PyPI <https://pypi.python.org/pypi/codedep>`_.
+Alternatively you can download codedep from PyPI and install it using::
+
+    sudo python setup.py install
+
+The latest development version of codedep is available from a github repository
+(see below).
+
 Usage
 -----
 
@@ -119,10 +135,15 @@ codedep.
 Source
 ------
 
-`codedep <https://github.com/MattShannon/codedep>`_ is hosted on github.
+The source code is hosted in the
+`codedep github repository <https://github.com/MattShannon/codedep>`_.
 To obtain the latest source code using git::
 
     git clone git://github.com/MattShannon/codedep.git
+
+Development is in fact done using `darcs <http://darcs.net/>`_, with the darcs
+repository converted to a git repository using
+`darcs-to-git <https://github.com/purcell/darcs-to-git>`_.
 
 Bugs
 ----
