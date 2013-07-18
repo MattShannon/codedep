@@ -14,7 +14,7 @@ with open('README.rst') as readmeFile:
 
 setup(
     name = 'codedep',
-    version = '0.3.dev1',
+    version = '0.3',
     description = 'Semi-automated code-level dependency tracking for python.',
     url = 'http://github.com/MattShannon/codedep',
     author = 'Matt Shannon',
