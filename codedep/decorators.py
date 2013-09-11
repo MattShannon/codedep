@@ -6,8 +6,6 @@
 # See `License` for details of license and warranty.
 
 
-from __future__ import division
-
 from codedep.hash import hashString
 
 import inspect

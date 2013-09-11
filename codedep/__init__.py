@@ -6,7 +6,5 @@
 # See `License` for details of license and warranty.
 
 
-from __future__ import division
-
 from codedep.decorators import codeHash, codeDeps, ForwardRef, codedepEvalThunk
 from codedep.compute import getHash
