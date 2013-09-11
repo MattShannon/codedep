@@ -7,6 +7,7 @@
 # See `License` for details of license and warranty.
 
 
+import os
 from distutils.core import setup
 
 with open('README.rst') as readmeFile:
@@ -21,6 +22,6 @@ setup(
     author_email = 'matt.shannon@cantab.net',
     license = '3-clause BSD (see License file)',
     packages = ['codedep'],
-    scripts = ['bin/codedep_check'],
+    scripts = [os.path.join('bin', 'codedep_check')],
     long_description = long_description,
 )
