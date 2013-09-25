@@ -8,3 +8,5 @@
 
 from codedep.decorators import codeHash, codeDeps, ForwardRef, codedepEvalThunk
 from codedep.compute import getHash
+
+__version__ = '0.4.dev1'
