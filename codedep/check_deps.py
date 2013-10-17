@@ -34,7 +34,7 @@ def peekIter(itr):
         yield elem, elemNext
         elem = elemNext
 
-def attachAstAndSymtab(nodes, symtab, depth = 0):
+def attachAstAndSymtab(nodes, symtab, depth=0):
     """Walks an AST and a symtable at the same time, linking them.
 
     A scope_depth attribute is added to each symtab giving the number of levels
@@ -45,7 +45,7 @@ def attachAstAndSymtab(nodes, symtab, depth = 0):
     symtab.scope_depth = depth
     symtabChildrenLeft = list(reversed(symtab.get_children()))
     for node in nodes:
-        attachAstAndSymtabSub(node, symtab, symtabChildrenLeft, depth = depth)
+        attachAstAndSymtabSub(node, symtab, symtabChildrenLeft, depth=depth)
     assert not symtabChildrenLeft
 
 def attachAstAndSymtabSub(node, symtab, symtabChildrenLeft, depth):
@@ -87,16 +87,16 @@ def attachAstAndSymtabSub(node, symtab, symtabChildrenLeft, depth):
 
         for subNode in subNodesOldScope:
             attachAstAndSymtabSub(subNode, symtab, symtabChildrenLeft,
-                                  depth = depth)
+                                  depth=depth)
 
         symtabChild = symtabChildrenLeft.pop()
         if isinstance(node, (_ast.FunctionDef, _ast.ClassDef)):
             assert symtabChild.get_name() == node.name
-        attachAstAndSymtab(subNodesNewScope, symtabChild, depth = depth + 1)
+        attachAstAndSymtab(subNodesNewScope, symtabChild, depth=(depth + 1))
     else:
         for subNode in ast.iter_child_nodes(node):
             attachAstAndSymtabSub(subNode, symtab, symtabChildrenLeft,
-                                  depth = depth)
+                                  depth=depth)
 
 def isGlobal(symtab, symName):
     """Returns True if symbol referred to by symName in symtab is global.
@@ -155,7 +155,7 @@ def simpleAssignToName(node):
     else:
         return None
 
-def prettyPrintBisqueDepsStanza(deps, init = '@', maxLineLength = 80):
+def prettyPrintBisqueDepsStanza(deps, init='@', maxLineLength=80):
     if not deps:
         return '%scodeDeps()' % init
     else:
@@ -186,18 +186,18 @@ def getSrcRootDirs(moduleNames):
 
 def main(argv):
     parser = argparse.ArgumentParser(
-        description = 'Checks codeDeps dependencies are correctly declared.',
+        description='Checks codeDeps dependencies are correctly declared.',
     )
     parser.add_argument(
-        '--inc_deps_on', dest = 'depModuleNames', metavar = 'DMOD',
-        action = 'append', default = [],
+        '--inc_deps_on', dest='depModuleNames', metavar='DMOD',
+        action='append', default=[],
         # FIXME : explain what target directory means
-        help = ('adds the directory containing module DMOD to the list of'
-                ' target directories (option can be repeated)')
+        help=('adds the directory containing module DMOD to the list of target'
+              ' directories (option can be repeated)')
     )
     parser.add_argument(
-        'moduleName', metavar = 'MOD',
-        help = 'name of module to check (e.g. "foo.bar")'
+        'moduleName', metavar='MOD',
+        help='name of module to check (e.g. "foo.bar")'
     )
     args = parser.parse_args(argv[1:])
 
@@ -449,7 +449,7 @@ def main(argv):
                                    ' original RHS is function or class)')
                         print prettyPrintBisqueDepsStanza(
                             sortedDeps,
-                            init = nameAssignedTo+' = '
+                            init=(nameAssignedTo+' = ')
                         )+'('
                         print '    %s' % restOfCurrLine
                         for line in restOfLines:

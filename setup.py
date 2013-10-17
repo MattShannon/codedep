@@ -14,14 +14,14 @@ with open('README.rst') as readmeFile:
     long_description = readmeFile.read()
 
 setup(
-    name = 'codedep',
-    version = '0.4.dev1',
-    description = 'Semi-automated code-level dependency tracking for python.',
-    url = 'http://github.com/MattShannon/codedep',
-    author = 'Matt Shannon',
-    author_email = 'matt.shannon@cantab.net',
-    license = '3-clause BSD (see License file)',
-    packages = ['codedep'],
-    scripts = [os.path.join('bin', 'codedep_check')],
-    long_description = long_description,
+    name='codedep',
+    version='0.4.dev1',
+    description='Semi-automated code-level dependency tracking for python.',
+    url='http://github.com/MattShannon/codedep',
+    author='Matt Shannon',
+    author_email='matt.shannon@cantab.net',
+    license='3-clause BSD (see License file)',
+    packages=['codedep'],
+    scripts=[os.path.join('bin', 'codedep_check')],
+    long_description=long_description,
 )
