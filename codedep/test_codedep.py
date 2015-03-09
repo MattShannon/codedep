@@ -6,9 +6,9 @@
 # See `License` for details of license and warranty.
 
 
-from codedep.hash import hashString
-
 import unittest
+
+from codedep.hash import hashString
 
 class TestCodedep(unittest.TestCase):
     def test_hashString_characterize(self):

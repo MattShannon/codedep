@@ -6,9 +6,9 @@
 # See `License` for details of license and warranty.
 
 
-from codedep.hash import hashString
-
 import inspect
+
+from codedep.hash import hashString
 
 def _updateInfo(fnOrClassOrObj):
     """Sets any unset codedep values to default values.

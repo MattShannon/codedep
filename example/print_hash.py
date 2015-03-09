@@ -1,7 +1,7 @@
 
-from example.foo import baz, Foo
-
 from codedep import getHash
+
+from example.foo import baz, Foo
 
 print 'hash of baz = %s' % getHash(baz)
 print 'hash of Foo = %s' % getHash(Foo)
