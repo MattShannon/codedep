@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""A distutils-based script for distributing and installing codedep."""
+"""A setuptools-based script for distributing and installing codedep."""
 
 # Copyright 2011, 2012, 2013, 2014 Matt Shannon
 
@@ -8,10 +8,12 @@
 
 
 import os
-from distutils.core import setup
+from setuptools import setup
 
 with open('README.rst') as readmeFile:
     long_description = readmeFile.read()
+
+requires = [ line.rstrip('\n') for line in open('requirements.txt') ]
 
 setup(
     name='codedep',
@@ -22,6 +24,7 @@ setup(
     author_email='matt.shannon@cantab.net',
     license='3-clause BSD (see License file)',
     packages=['codedep'],
+    install_requires=requires,
     scripts=[os.path.join('bin', 'codedep_check')],
     long_description=long_description,
 )

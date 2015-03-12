@@ -62,15 +62,19 @@ operate in any tricky edge cases.
 Installation
 ------------
 
-For most purposes the simplest way to install codedep is to use pip::
+For most purposes the simplest way to install codedep is to use pip.
+For example in Debian and Ubuntu::
 
     sudo pip install codedep
 
 This installs the latest released version of
-`codedep on PyPI <https://pypi.python.org/pypi/codedep>`_.
-Alternatively you can download codedep from PyPI and install it using::
+`codedep on PyPI <https://pypi.python.org/pypi/codedep>`_, together with any
+currently uninstalled python packages required by codedep.
 
-    sudo python setup.py install
+codedep can also be installed in a virtualenv::
+
+    virtualenv env
+    env/bin/pip install codedep
 
 The latest development version of codedep is available from a github repository
 (see below).
@@ -144,6 +148,10 @@ To obtain the latest source code using git::
 Development is in fact done using `darcs <http://darcs.net/>`_, with the darcs
 repository converted to a git repository using
 `darcs-to-git <https://github.com/purcell/darcs-to-git>`_.
+
+To install any currently uninstalled python packages required by codedep::
+
+    sudo pip install -r requirements.txt
 
 Bugs
 ----
